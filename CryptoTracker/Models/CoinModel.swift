@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - CoinModel
 struct CoinModel: Identifiable, Codable {
@@ -31,6 +32,16 @@ struct CoinModel: Identifiable, Codable {
 	
 	var rank: Int {
 		marketCapRank
+	}
+	
+	var percentageChangeColor: Color {
+		guard let priceChangePercentage24H = priceChangePercentage24H else {
+			return Color.theme.secondaryTextColor
+		}
+		
+		return priceChangePercentage24H.sign == .plus
+			? Color.theme.greenColor
+			: Color.theme.redColor
 	}
 
 	enum CodingKeys: String, CodingKey {
