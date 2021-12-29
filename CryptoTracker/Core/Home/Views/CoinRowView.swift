@@ -11,7 +11,7 @@ struct CoinRowView: View {
 
 	let coin: CoinModel
 	
-	let showHoldingsColumn = true
+	var showHoldingsColumn = true
 	
 	var coinRankTextView: some View {
 		Text("\(coin.rank)")

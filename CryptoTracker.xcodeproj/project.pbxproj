@@ -19,6 +19,8 @@
 		A873A0E52778B413009B0D34 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A873A0E42778B413009B0D34 /* CoinModel.swift */; };
 		A89968942779FC3F00CD42C8 /* CoinRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89968932779FC3F00CD42C8 /* CoinRowView.swift */; };
 		A89968962779FD9400CD42C8 /* PreviewProvider+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89968952779FD9400CD42C8 /* PreviewProvider+Extensions.swift */; };
+		A8AC6D21277B4E44006EB094 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AC6D20277B4E44006EB094 /* HomeViewModel.swift */; };
+		A8DE80E9277CB215007347CC /* CoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DE80E8277CB215007347CC /* CoinDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		A873A0E42778B413009B0D34 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		A89968932779FC3F00CD42C8 /* CoinRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRowView.swift; sourceTree = "<group>"; };
 		A89968952779FD9400CD42C8 /* PreviewProvider+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewProvider+Extensions.swift"; sourceTree = "<group>"; };
+		A8AC6D20277B4E44006EB094 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A8DE80E8277CB215007347CC /* CoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,7 @@
 				A873A0D527786850009B0D34 /* Extensions */,
 				A873A0E32778B407009B0D34 /* Models */,
 				A84FE4B92774C3810075218D /* Preview Content */,
+				A8DE80E7277CB1F2007347CC /* Services */,
 			);
 			path = CryptoTracker;
 			sourceTree = "<group>";
@@ -107,9 +112,8 @@
 		A873A0D92778815B009B0D34 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A873A0DB27788189009B0D34 /* HomeView.swift */,
-				A873A0E127789D25009B0D34 /* HomeHeader.swift */,
-				A89968932779FC3F00CD42C8 /* CoinRowView.swift */,
+				A8AC6D20277B4E44006EB094 /* HomeViewModel.swift */,
+				A8AC6D1F277B4E34006EB094 /* Views */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -129,6 +133,24 @@
 				A873A0E42778B413009B0D34 /* CoinModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A8AC6D1F277B4E34006EB094 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A873A0DB27788189009B0D34 /* HomeView.swift */,
+				A873A0E127789D25009B0D34 /* HomeHeader.swift */,
+				A89968932779FC3F00CD42C8 /* CoinRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A8DE80E7277CB1F2007347CC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A8DE80E8277CB215007347CC /* CoinDataService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,7 +223,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8DE80E9277CB215007347CC /* CoinDataService.swift in Sources */,
 				A89968942779FC3F00CD42C8 /* CoinRowView.swift in Sources */,
+				A8AC6D21277B4E44006EB094 /* HomeViewModel.swift in Sources */,
 				A873A0E0277897FB009B0D34 /* CircularButtonAnimationView.swift in Sources */,
 				A873A0DC27788189009B0D34 /* HomeView.swift in Sources */,
 				A84FE4B42774C3800075218D /* CryptoTrackerApp.swift in Sources */,
@@ -359,7 +383,7 @@
 				PRODUCT_NAME = "Crypto Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -389,7 +413,7 @@
 				PRODUCT_NAME = "Crypto Tracker";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
