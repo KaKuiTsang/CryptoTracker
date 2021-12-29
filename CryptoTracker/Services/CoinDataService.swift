@@ -6,24 +6,16 @@
 //
 
 import Foundation
-import UIKit
 
 class CoinDataService {
 	
-	static let shared = CoinDataService()
-	
-	private init() {}
-	
-	func getCoins() async throws -> [CoinModel]  {
-		guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=hkd&order=market_cap_desc&per_page=25&page=1&sparkline=true") else {
+	static func getCoins() async throws -> [CoinModel]  {
+		guard let url =
+				URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=hkd&order=market_cap_desc&per_page=25&page=1&sparkline=true") else {
 			throw URLError(.badURL)
 		}
 		
-		let (data, response) = try await URLSession.shared.data(from: url)
-		
-		guard let response = response as? HTTPURLResponse, response.statusCode >= 200 && response.statusCode < 300 else {
-			throw URLError(.badServerResponse)
-		}
+		let data = try await NetworkingManager.download(url: url)
 		
 		return try JSONDecoder().decode([CoinModel].self, from: data)
 	}

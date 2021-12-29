@@ -16,9 +16,9 @@ class HomeViewModel: ObservableObject {
 	@MainActor
 	func getCoins() async {
 		do {
-			coins = try await CoinDataService.shared.getCoins()
+			coins = try await CoinDataService.getCoins()
 		} catch {
-			print(error)
+			dump(error)
 		}
 	}
 }
