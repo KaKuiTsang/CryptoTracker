@@ -13,23 +13,28 @@ struct CoinRowView: View {
 	
 	var showHoldingsColumn = true
 	
+    var body: some View {
+		HStack(spacing: 0) {
+			coinRankTextView
+			//coinImageView
+			CoinImageView(urlString: coin.image)
+			coinSymbolView
+			
+			Spacer()
+			
+			if showHoldingsColumn {
+				holdingsColumn
+			}
+			
+			valueColumn
+		}
+    }
+	
 	var coinRankTextView: some View {
 		Text("\(coin.rank)")
 			.font(.caption)
 			.foregroundColor(Color.theme.secondaryTextColor)
 			.frame(minWidth: 30)
-	}
-	
-	var coinImageView: some View {
-		AsyncImage(url: URL(string: coin.image)) { image in
-			image
-				.resizable()
-				.scaledToFit()
-				.frame(width: 30, height: 30)
-				.clipShape(Circle())
-		} placeholder: {
-			ProgressView()
-		}
 	}
 	
 	var coinSymbolView: some View {
@@ -58,22 +63,6 @@ struct CoinRowView: View {
 		}
 		.frame(width: UIScreen.main.bounds.width / 3, alignment: .trailing)
 	}
-	
-    var body: some View {
-		HStack(spacing: 0) {
-			coinRankTextView
-			coinImageView
-			coinSymbolView
-			
-			Spacer()
-			
-			if showHoldingsColumn {
-				holdingsColumn
-			}
-			
-			valueColumn
-		}
-    }
 }
 
 struct CoinRowView_Previews: PreviewProvider {
