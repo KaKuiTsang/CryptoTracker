@@ -22,7 +22,7 @@ class DeveloperPreview {
 	
 	let viewModel = HomeViewModel()
 	
-	let coin = CoinModel(
+	let coin = Coin(
 		id: "bitcoin",
 		symbol: "btc",
 		name: "Bitcoin",

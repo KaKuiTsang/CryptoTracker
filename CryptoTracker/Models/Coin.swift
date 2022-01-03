@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 // MARK: - CoinModel
-struct CoinModel: Identifiable, Codable {
+struct Coin: Identifiable, Codable {
 	let id, symbol, name: String
 	let image: String
 	let currentPrice: Double

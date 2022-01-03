@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class HomeViewModel: ObservableObject {
-	@Published var coins = [CoinModel]()
-	@Published var filteredCoins = [CoinModel]()
-	@Published var portfolioCoins = [CoinModel]()
+	@Published var coins = [Coin]()
+	@Published var filteredCoins = [Coin]()
+	@Published var portfolioCoins = [Coin]()
 	@Published var searchText = ""
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -32,7 +32,7 @@ class HomeViewModel: ObservableObject {
 		}
 	}
 	
-	private func filterCoins(_ text: String, _ coins: [CoinModel]) -> [CoinModel] {
+	private func filterCoins(_ text: String, _ coins: [Coin]) -> [Coin] {
 		guard !searchText.isEmpty else { return coins }
 		let lowercasedText = searchText.lowercased()
 		return coins.filter { coin -> Bool in

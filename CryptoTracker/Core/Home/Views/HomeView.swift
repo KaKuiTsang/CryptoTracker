@@ -55,7 +55,6 @@ struct HomeView: View {
 					.listRowSeparator(.hidden)
 			}
 			.listStyle(.plain)
-			.transition(.move(edge: .leading))
 		}
 	}
 	
