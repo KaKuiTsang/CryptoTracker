@@ -10,6 +10,7 @@ import Foundation
 class HomeViewModel: ObservableObject {
 	@Published var coins = [CoinModel]()
 	@Published var portfolioCoins = [CoinModel]()
+	@Published var searchText = ""
 	
 	init() {}
 	

@@ -11,6 +11,32 @@ struct HomeView: View {
 	@StateObject private var viewModel = HomeViewModel()
 	@State private var showPortfolio = false
 	
+    var body: some View {
+		ZStack {
+			Color.theme.backgroundColor
+				.ignoresSafeArea()
+			
+			VStack {
+				HomeHeader(showPortfolio: $showPortfolio)
+				
+				SearchBarView(searchText: $viewModel.searchText)
+				
+				if showPortfolio {
+					portfolioList
+						.transition(.move(edge: .trailing))
+				}
+				
+				if !showPortfolio {
+					priceList
+						.transition(.move(edge: .leading))
+				}
+			}
+		}
+		.task {
+			await viewModel.getCoins()
+		}
+    }
+	
 	var priceList: some View {
 		VStack(spacing: 0) {
 			HStack {
@@ -54,30 +80,6 @@ struct HomeView: View {
 			
 		}
 	}
-	
-    var body: some View {
-		ZStack {
-			Color.theme.backgroundColor
-				.ignoresSafeArea()
-			
-			VStack {
-				HomeHeader(showPortfolio: $showPortfolio)
-				
-				if showPortfolio {
-					portfolioList
-						.transition(.move(edge: .trailing))
-				}
-				
-				if !showPortfolio {
-					priceList
-						.transition(.move(edge: .leading))
-				}
-			}
-		}
-		.task {
-			await viewModel.getCoins()
-		}
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
