@@ -22,6 +22,11 @@ class DeveloperPreview {
 	
 	let viewModel = HomeViewModel()
 	
+	let stat1 = Statistic(title: "MarketCap", value: "$12.5Bn", percentageChange: 25.24)
+	let stat2 = Statistic(title: "Total Volume", value: "$1.23Tr")
+	let stat3 = Statistic(title: "Portfolio Value", value: "$50.4k", percentageChange: -12.32)
+	let stat4 = Statistic(title: "Stat 4", value: "$123.4k", percentageChange: 20.32)
+	
 	let coin = Coin(
 		id: "bitcoin",
 		symbol: "btc",
