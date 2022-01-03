@@ -16,7 +16,6 @@ struct CoinRowView: View {
     var body: some View {
 		HStack(spacing: 0) {
 			coinRankTextView
-			//coinImageView
 			CoinImageView(urlString: coin.image)
 			coinSymbolView
 			

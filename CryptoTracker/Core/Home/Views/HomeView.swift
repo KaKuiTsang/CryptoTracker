@@ -47,8 +47,9 @@ struct HomeView: View {
 			.font(.caption)
 			.foregroundColor(Color.theme.secondaryTextColor)
 			.padding(.horizontal)
+			.padding(.vertical, 8)
 			
-			List(viewModel.coins) { coin in
+			List(viewModel.filteredCoins) { coin in
 				CoinRowView(coin: coin, showHoldingsColumn: false)
 					.listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
 					.listRowSeparator(.hidden)
