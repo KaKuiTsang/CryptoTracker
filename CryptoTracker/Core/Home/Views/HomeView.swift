@@ -35,7 +35,16 @@ struct HomeView: View {
 			}
 		}
 		.task {
-			await viewModel.getCoins()
+			await withTaskGroup(of: Void.self) { group in
+				group.addTask {
+					await viewModel.getCoins()
+				}
+				
+				group.addTask {
+					await viewModel.getStatistic()
+				}
+			}
+			
 		}
     }
 	

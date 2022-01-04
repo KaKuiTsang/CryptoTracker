@@ -13,12 +13,7 @@ class HomeViewModel: ObservableObject {
 	@Published var filteredCoins = [Coin]()
 	@Published var portfolioCoins = [Coin]()
 	@Published var searchText = ""
-	@Published var stats = [
-		Statistic(title: "MarketCap", value: "$12.5Bn", percentageChange: 25.24),
-		Statistic(title: "Total Volume", value: "$1.23Tr"),
-		Statistic(title: "Portfolio Value", value: "$50.4k", percentageChange: -12.32),
-		Statistic(title: "Stat 4", value: "$123.4k", percentageChange: 20.32)
-	]
+	@Published var stats = [Statistic]()
 	private var cancellables = Set<AnyCancellable>()
 	
 	init() {
@@ -33,6 +28,24 @@ class HomeViewModel: ObservableObject {
 	func getCoins() async {
 		do {
 			coins = try await CoinDataService.getCoins()
+		} catch {
+			dump(error)
+		}
+	}
+	
+	@MainActor
+	func getStatistic() async {
+		do {
+			
+			let data = try await CoinDataService.getStatistic()
+			
+			stats = [
+				Statistic(title: "Market Cap", value: data.marketCap, percentageChange: data.marketCapChangePercentage24HUsd),
+				Statistic(title: "24h Volume", value: data.volume),
+				Statistic(title: "BTC Dominance", value: data.btcDominance),
+				Statistic(title: "Portfolio Value", value: "$0.00", percentageChange: 0),
+			]
+			
 		} catch {
 			dump(error)
 		}
