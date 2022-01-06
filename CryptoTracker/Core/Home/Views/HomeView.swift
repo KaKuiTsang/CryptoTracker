@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
 	@StateObject private var viewModel = HomeViewModel()
 	@State private var showPortfolio = false
+	@State private var showAddPortfolio = false
 	
     var body: some View {
 		ZStack {
@@ -17,7 +18,7 @@ struct HomeView: View {
 				.ignoresSafeArea()
 			
 			VStack {
-				HomeHeader(showPortfolio: $showPortfolio)
+				HomeHeader(showPortfolio: $showPortfolio, showAddPortfolio: $showAddPortfolio)
 				
 				HomeStatView(stats: viewModel.stats, showPortfolio: $showPortfolio)
 				
@@ -33,6 +34,9 @@ struct HomeView: View {
 						.transition(.move(edge: .leading))
 				}
 			}
+		}
+		.sheet(isPresented: $showAddPortfolio) {
+			EditPortfolioView(homeViewModel: viewModel)
 		}
 		.task {
 			await withTaskGroup(of: Void.self) { group in

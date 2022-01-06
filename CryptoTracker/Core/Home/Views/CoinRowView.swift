@@ -17,6 +17,7 @@ struct CoinRowView: View {
 		HStack(spacing: 0) {
 			coinRankTextView
 			CoinImageView(urlString: coin.image)
+				.frame(width: 30, height: 30)
 			coinSymbolView
 			
 			Spacer()

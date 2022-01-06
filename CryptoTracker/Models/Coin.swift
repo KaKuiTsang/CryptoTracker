@@ -76,6 +76,12 @@ struct Coin: Identifiable, Codable {
 	}
 }
 
+extension Coin: Equatable {
+	static func == (lhs: Coin, rhs: Coin) -> Bool {
+		lhs.id == rhs.id
+	}
+}
+
 // MARK: - SparklineIn7D
 struct SparklineIn7D: Codable {
 	let price: [Double]?

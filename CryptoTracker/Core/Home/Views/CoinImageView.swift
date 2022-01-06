@@ -26,7 +26,6 @@ struct CoinImageView: View {
 			ProgressView().opacity(isLoading ? 1 : 0)
 		
 		}
-		.frame(width: 30, height: 30)
 		.task {
 			isLoading = true
 			image = await CoinImageService.getCoinImage(urlString: urlString)
