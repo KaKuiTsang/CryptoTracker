@@ -25,12 +25,12 @@ struct HomeView: View {
 				SearchBarView(searchText: $viewModel.searchText)
 				
 				if showPortfolio {
-					portfolioList
+					PortfolioCoinListView(coins: viewModel.portfolioCoins)
 						.transition(.move(edge: .trailing))
 				}
 				
 				if !showPortfolio {
-					priceList
+					HomeCoinListView(coins: viewModel.filteredCoins)
 						.transition(.move(edge: .leading))
 				}
 			}
@@ -51,50 +51,6 @@ struct HomeView: View {
 			
 		}
     }
-	
-	var priceList: some View {
-		VStack(spacing: 0) {
-			HStack {
-				Text("Coin")
-				Spacer()
-				Text("Price")
-			}
-			.font(.caption)
-			.foregroundColor(Color.theme.secondaryTextColor)
-			.padding(.horizontal)
-			.padding(.vertical, 8)
-			
-			List(viewModel.filteredCoins) { coin in
-				CoinRowView(coin: coin, showHoldingsColumn: false)
-					.listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
-					.listRowSeparator(.hidden)
-			}
-			.listStyle(.plain)
-		}
-	}
-	
-	var portfolioList: some View {
-		VStack(spacing: 0) {
-			HStack {
-				Text("Coin")
-				Spacer()
-				Text("Holdings")
-				Spacer()
-				Text("Price")
-			}
-			.font(.caption)
-			.foregroundColor(Color.theme.secondaryTextColor)
-			.padding(.horizontal)
-			
-			List(viewModel.portfolioCoins) { coin in
-				CoinRowView(coin: coin, showHoldingsColumn: true)
-					.listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
-					.listRowSeparator(.hidden)
-			}
-			.listStyle(.plain)
-			
-		}
-	}
 }
 
 struct HomeView_Previews: PreviewProvider {
