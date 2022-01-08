@@ -14,6 +14,7 @@ class HomeViewModel: ObservableObject {
 	@Published var portfolioCoins = [Coin]()
 	@Published var searchText = ""
 	@Published var stats = [Statistic]()
+	private let portfolioRepo = PortfolioRepository()
 	private var cancellables = Set<AnyCancellable>()
 	
 	init() {
@@ -24,12 +25,32 @@ class HomeViewModel: ObservableObject {
 			.assign(to: &$filteredCoins)
 	}
 	
+	private func filterCoins(_ text: String, _ coins: [Coin]) -> [Coin] {
+		guard !searchText.isEmpty else { return coins }
+		let lowercasedText = searchText.lowercased()
+		return coins.filter { coin -> Bool in
+			coin.name.lowercased().contains(lowercasedText)
+				|| coin.symbol.lowercased().contains(lowercasedText)
+				|| coin.id.lowercased().contains(lowercasedText)
+		}
+	}
+	
 	@MainActor
 	func getCoins() async {
 		do {
 			coins = try await CoinDataService.getCoins()
 		} catch {
 			dump(error)
+		}
+	}
+	
+	@MainActor
+	func getAllPortfolio() {
+		let entities = portfolioRepo.getAllPortfolio()
+		portfolioCoins = entities.compactMap { entity -> Coin? in
+			var coin = coins.first(where: { coin in coin.id == entity.coinId } )
+			coin?.updateCurrentHoldings(amount: entity.amount)
+			return coin
 		}
 	}
 	
@@ -48,16 +69,6 @@ class HomeViewModel: ObservableObject {
 			
 		} catch {
 			dump(error)
-		}
-	}
-	
-	private func filterCoins(_ text: String, _ coins: [Coin]) -> [Coin] {
-		guard !searchText.isEmpty else { return coins }
-		let lowercasedText = searchText.lowercased()
-		return coins.filter { coin -> Bool in
-			return coin.name.lowercased().contains(lowercasedText)
-			|| coin.symbol.lowercased().contains(lowercasedText)
-			|| coin.id.lowercased().contains(lowercasedText)
 		}
 	}
 }

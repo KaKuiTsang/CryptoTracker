@@ -19,19 +19,17 @@ struct HomeView: View {
 			
 			VStack {
 				HomeHeader(showPortfolio: $showPortfolio, showAddPortfolio: $showAddPortfolio)
-				
 				HomeStatView(stats: viewModel.stats, showPortfolio: $showPortfolio)
-				
 				SearchBarView(searchText: $viewModel.searchText)
-				
-				if showPortfolio {
-					PortfolioCoinListView(coins: viewModel.portfolioCoins)
-						.transition(.move(edge: .trailing))
-				}
 				
 				if !showPortfolio {
 					HomeCoinListView(coins: viewModel.filteredCoins)
 						.transition(.move(edge: .leading))
+				}
+				
+				if showPortfolio {
+					PortfolioCoinListView(coins: viewModel.portfolioCoins)
+						.transition(.move(edge: .trailing))
 				}
 			}
 		}
@@ -42,13 +40,13 @@ struct HomeView: View {
 			await withTaskGroup(of: Void.self) { group in
 				group.addTask {
 					await viewModel.getCoins()
+					await viewModel.getAllPortfolio()
 				}
 				
 				group.addTask {
 					await viewModel.getStatistic()
 				}
 			}
-			
 		}
     }
 }

@@ -11,7 +11,7 @@ struct EditPortfolioView: View {
 	@Environment(\.presentationMode) var presentationMode
 	@ObservedObject var homeViewModel: HomeViewModel
 	@StateObject var viewModel = EditPortfolioViewModel()
-	@FocusState private var isEditing: Bool
+//	@FocusState private var isEditing: Bool
 	
 	var body: some View {
 		NavigationView {
@@ -25,7 +25,7 @@ struct EditPortfolioView: View {
 							SelectedCoinInfoView(
 								selectedCoin: $viewModel.selectedCoin,
 								amountText: $viewModel.amountText,
-								isEditing: $isEditing
+								currentPriceText: $viewModel.currentPriceText
 							)
 						}
 						
@@ -35,6 +35,10 @@ struct EditPortfolioView: View {
 
 					}
 					.frame(minHeight: proxy.size.height)
+					.contentShape(Rectangle())
+					.onTapGesture {
+						viewModel.endEditing()
+					}
 				}
 			}
 			.navigationTitle("Edit Portfolio")
@@ -51,13 +55,13 @@ struct EditPortfolioView: View {
 							.opacity(viewModel.showCheckmark ? 1 : 0)
 						
 						Button {
-							isEditing = false
 							viewModel.saveButtonTapped()
+							homeViewModel.getAllPortfolio()
 						} label: {
 							Text("Save".uppercased())
 						}
 						.opacity(
-							(viewModel.selectedCoin != nil && viewModel.selectedCoin?.currentHoldings != Double(viewModel.amountText)) ? 1 : 0
+							(viewModel.selectedCoin != nil && !viewModel.amountText.isEmpty) ? 1 : 0
 						)
 					}
 					.font(.headline)

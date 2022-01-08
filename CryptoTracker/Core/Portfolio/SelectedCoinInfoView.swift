@@ -10,7 +10,7 @@ import SwiftUI
 struct SelectedCoinInfoView: View {
 	@Binding var selectedCoin: Coin?
 	@Binding var amountText: String
-	var isEditing: FocusState<Bool>.Binding
+	@Binding var currentPriceText: String
 	
     var body: some View {
 		VStack {
@@ -26,30 +26,22 @@ struct SelectedCoinInfoView: View {
 				TextField("Ex: 2.0", text: $amountText)
 					.multilineTextAlignment(.trailing)
 					.keyboardType(.decimalPad)
-					.focused(isEditing)
 			}
 			Divider()
 			HStack {
 				Text("Current Value: ")
 				Spacer()
-				Text(String(format: "%.2f", getCurrentValue()))
+				Text(currentPriceText)
 			}
 		}
 		.animation(.none, value: selectedCoin)
 		.font(.headline)
 		.padding()
     }
-	
-	private func getCurrentValue() -> Double {
-		guard let amount = Double(amountText), let selectedCoin = selectedCoin else { return 0 }
-		return amount * selectedCoin.currentPrice
-	}
 }
 
 struct SelectedCoinInfoView_Previews: PreviewProvider {
-	@FocusState static var isEditing: Bool
-	
     static var previews: some View {
-		SelectedCoinInfoView(selectedCoin: .constant(nil), amountText: .constant(""), isEditing: $isEditing)
+		SelectedCoinInfoView(selectedCoin: .constant(nil), amountText: .constant(""), currentPriceText: .constant("0.00"))
     }
 }

@@ -23,6 +23,7 @@ struct SearchBarView: View {
 			TextField("Search by name or symbol...", text: $searchText)
 				.foregroundColor(Color.theme.accentColor)
 				.focused($isFocused)
+				.onTapGesture {}
 			
 			Image(systemName: "xmark")
 				.symbolVariant(.circle)

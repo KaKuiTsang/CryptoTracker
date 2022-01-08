@@ -78,7 +78,7 @@ struct Coin: Identifiable, Codable {
 
 extension Coin: Equatable {
 	static func == (lhs: Coin, rhs: Coin) -> Bool {
-		lhs.id == rhs.id
+		lhs.id == rhs.id && lhs.currentHoldings == rhs.currentHoldings
 	}
 }
 
