@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeCoinListView: View {
+	@State private var selectedCoin: Coin?
+	@State private var showDetailView = false
+	
 	let coins: [Coin]
 	
     var body: some View {
@@ -26,8 +29,21 @@ struct HomeCoinListView: View {
 				CoinRowView(coin: coin, showHoldingsColumn: false)
 					.listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
 					.listRowSeparator(.hidden)
+					.contentShape(Rectangle())
+					.onTapGesture {
+						selectedCoin = coin
+						showDetailView = true
+					}
 			}
 			.listStyle(.plain)
+			.background(
+				NavigationLink(isActive: $showDetailView) {
+					DetailView(coin: selectedCoin)
+				} label: {
+					EmptyView()
+				}
+			)
+			
 		}
     }
 }
