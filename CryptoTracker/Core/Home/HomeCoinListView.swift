@@ -38,7 +38,7 @@ struct HomeCoinListView: View {
 			.listStyle(.plain)
 			.background(
 				NavigationLink(isActive: $showDetailView) {
-					DetailView(coin: selectedCoin)
+					DetailView(viewModel: DetailViewModel(coin: selectedCoin))
 				} label: {
 					EmptyView()
 				}

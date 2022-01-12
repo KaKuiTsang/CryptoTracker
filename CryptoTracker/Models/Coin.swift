@@ -68,7 +68,6 @@ struct Coin: Identifiable, Codable {
 		case atlDate = "atl_date"
 		case lastUpdated = "last_updated"
 		case sparklineIn7D = "sparkline_in_7d"
-		//case currentHoldings
 	}
 	
 	mutating func updateCurrentHoldings(amount: Double) {

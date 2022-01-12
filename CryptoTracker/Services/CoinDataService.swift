@@ -17,7 +17,6 @@ class CoinDataService {
 		}
 		
 		let data = try await NetworkingManager.download(url: url)
-		
 		return try JSONDecoder().decode([Coin].self, from: data)
 	}
 	
@@ -28,12 +27,20 @@ class CoinDataService {
 		}
 		
 		let data = try await NetworkingManager.download(url: url)
-		
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
-		
 		let globalData = try decoder.decode(GlobalData.self, from: data)
-		
 		return globalData.data
+	}
+	
+	static func getCoinDetail(with id: String) async throws  -> CoinDetail {
+		guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/\(id)?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false") else {
+			throw URLError(.badURL)
+		}
+		
+		let data = try await NetworkingManager.download(url: url)
+		let decoder = JSONDecoder()
+		decoder.keyDecodingStrategy = .convertFromSnakeCase
+		return try decoder.decode(CoinDetail.self, from: data)
 	}
 }

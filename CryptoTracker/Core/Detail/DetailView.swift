@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct DetailView: View {
-	let coin: Coin?
+	@ObservedObject var viewModel: DetailViewModel
 	
     var body: some View {
-		Text(coin?.name ?? "")
+		if let coin = viewModel.coin {
+			Text(coin.name)
+		} else {
+			EmptyView()
+		}
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-		DetailView(coin: dev.coin)
+		DetailView(viewModel: DetailViewModel(coin: dev.coin))
     }
 }
