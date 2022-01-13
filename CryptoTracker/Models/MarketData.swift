@@ -18,12 +18,12 @@ struct MarketData: Codable {
 	
 	var marketCap: String {
 		guard let item = totalMarketCap.first(where: { $0.key == "hkd" }) else { return "" }
-		return "$\(item.value.formattedWithAbbreviation())"
+		return "\(item.value.formattedWithAbbreviation())"
 	}
 	
 	var volume: String {
 		guard let item = totalVolume.first(where: { $0.key == "hkd" }) else { return "" }
-		return "$\(item.value.formattedWithAbbreviation())"
+		return "\(item.value.formattedWithAbbreviation())"
 	}
 	
 	var btcDominance: String {

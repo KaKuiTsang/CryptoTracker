@@ -12,7 +12,15 @@ struct DetailView: View {
 	
     var body: some View {
 		if let coin = viewModel.coin {
-			Text(coin.name)
+			ScrollView {
+				VStack(spacing: 20) {
+					Text("").frame(height: 150)
+					OverviewSection(stats: viewModel.overviewStatistics)
+					AdditionalSection(stats: viewModel.additionalStatistics)
+				}
+				.padding()
+			}
+			.navigationTitle(coin.name)
 		} else {
 			EmptyView()
 		}
@@ -21,6 +29,8 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-		DetailView(viewModel: DetailViewModel(coin: dev.coin))
+		NavigationView {
+			DetailView(viewModel: DetailViewModel(coin: dev.coin))
+		}
     }
 }
