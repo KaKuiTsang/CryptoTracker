@@ -37,13 +37,13 @@ extension Double {
 			let formatted = num / 1_000_000_000_000
 			return signString + String(format: format, formatted) + "Tr"
 		case 1_000_000_000...:
-			let formatted = num / 1_000_000_000_000
+			let formatted = num / 1_000_000_000
 			return signString + String(format: format, formatted) + "Bn"
 		case 1_000_000...:
-			let formatted = num / 1_000_000_000_000
+			let formatted = num / 1_000_000
 			return signString + String(format: format, formatted) + "M"
 		case 1_000...:
-			let formatted = num / 1_000_000_000_000
+			let formatted = num / 1_000
 			return signString + String(format: format, formatted) + "K"
 		case 0...:
 			return String(format: "%.2f", self)

@@ -14,8 +14,11 @@ struct DetailView: View {
 		if let coin = viewModel.coin {
 			ScrollView {
 				VStack(spacing: 20) {
-					Text("").frame(height: 150)
+					ChartView(coin: coin)
+						.padding(.vertical)
+					
 					OverviewSection(stats: viewModel.overviewStatistics)
+					
 					AdditionalSection(stats: viewModel.additionalStatistics)
 				}
 				.padding()
