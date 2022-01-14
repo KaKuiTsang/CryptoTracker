@@ -12,6 +12,7 @@ struct ChartView: View {
 	private let data: [Double]
 	private let maxY: Double
 	private let minY: Double
+	private let midY: Double
 	private let range: Double
 	private let lineColor: Color
 	private let endDate: Date
@@ -22,6 +23,7 @@ struct ChartView: View {
 		data = coin.sparklineIn7D?.price ?? []
 		maxY = data.max() ?? 0
 		minY = data.min() ?? 0
+		midY = (maxY + minY) / 2
 		range = maxY - minY
 		let priceChange = (data.last ?? 0) - (data.first ?? 0)
 		lineColor = priceChange > 0 ? Color.theme.greenColor : Color.theme.redColor
@@ -90,7 +92,7 @@ struct ChartView: View {
 		VStack {
 			Text(maxY.formattedWithAbbreviation())
 			Spacer()
-			Text((minY + range / 2).formattedWithAbbreviation())
+			Text(midY.formattedWithAbbreviation())
 			Spacer()
 			Text(minY.formattedWithAbbreviation())
 		}

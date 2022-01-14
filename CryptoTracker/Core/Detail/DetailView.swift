@@ -24,6 +24,16 @@ struct DetailView: View {
 				.padding()
 			}
 			.navigationTitle(coin.name)
+			.toolbar {
+				ToolbarItem(placement: .navigationBarTrailing) {
+					HStack(spacing: 8) {
+						Text(coin.symbol.uppercased())
+							.bold()
+						CoinImageView(urlString: coin.image)
+							.frame(width: 25, height: 25)
+					}
+				}
+			}
 		} else {
 			EmptyView()
 		}
