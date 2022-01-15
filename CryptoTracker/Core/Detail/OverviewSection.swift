@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct OverviewSection: View {
-	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+	@EnvironmentObject var viewModel: DetailViewModel
 	
+	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 	let stats: [Statistic]
 	
     var body: some View {
@@ -20,6 +21,10 @@ struct OverviewSection: View {
 			.frame(maxWidth: .infinity, alignment: .leading)
 		
 		Divider()
+		
+		if !viewModel.description.isEmpty {
+			DescriptionView(description: viewModel.description)
+		}
 		
 		LazyVGrid(columns: columns, alignment: .leading, spacing: 30, pinnedViews: []) {
 			ForEach(stats) { stat in
@@ -32,5 +37,6 @@ struct OverviewSection: View {
 struct OverviewSection_Previews: PreviewProvider {
     static var previews: some View {
 		OverviewSection(stats: dev.viewModel.stats)
+			.environmentObject(dev.viewModel)
     }
 }

@@ -18,8 +18,22 @@ struct DetailView: View {
 						.padding(.vertical)
 					
 					OverviewSection(stats: viewModel.overviewStatistics)
+						.environmentObject(viewModel)
 					
 					AdditionalSection(stats: viewModel.additionalStatistics)
+					
+					VStack(alignment: .leading, spacing: 16) {
+						if !viewModel.homePageURLString.isEmpty, let url = URL(string: viewModel.homePageURLString) {
+							Link("Home Page", destination: url)
+						}
+						
+						if !viewModel.redditURLString.isEmpty, let url = URL(string: viewModel.redditURLString) {
+							Link("Reddit", destination: url)
+						}
+					}
+					.accentColor(.blue)
+					.font(.headline)
+					.frame(maxWidth: .infinity, alignment: .leading)
 				}
 				.padding()
 			}

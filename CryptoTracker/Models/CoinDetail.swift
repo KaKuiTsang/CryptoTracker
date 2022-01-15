@@ -14,11 +14,15 @@ struct CoinDetail: Codable, Identifiable {
 	let categories: [String?]?
 	let description: Description
 	let links: Links?
+	
+	var readableDescription: String? {
+		description.en?.removeHTMLTags()
+	}
 }
 
 struct Links: Codable {
 	let homepage: [String]?
-	let subredditURL: String?
+	let subredditUrl: String?
 }
 
 struct Description: Codable {
