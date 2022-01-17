@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HomeHeader: View {
 	@Binding var showPortfolio: Bool
-	@Binding var showAddPortfolio: Bool
+	@Binding var showEditPortfolio: Bool
+	@Binding var showSettings: Bool
 	
     var body: some View {
 		HStack {
@@ -18,7 +19,9 @@ struct HomeHeader: View {
 				.background(CircularButtonAnimationView(shouldAnimate: $showPortfolio))
 				.onTapGesture {
 					if showPortfolio {
-						showAddPortfolio.toggle()
+						showEditPortfolio.toggle()
+					} else {
+						showSettings.toggle()
 					}
 				}
 			
@@ -46,7 +49,7 @@ struct HomeHeader: View {
 
 struct HomeHeader_Previews: PreviewProvider {
     static var previews: some View {
-		HomeHeader(showPortfolio: .constant(false), showAddPortfolio: .constant(false))
+		HomeHeader(showPortfolio: .constant(false), showEditPortfolio: .constant(false), showSettings: .constant(false))
 			.previewLayout(.sizeThatFits)
     }
 }

@@ -10,7 +10,8 @@ import SwiftUI
 struct HomeView: View {
 	@StateObject private var viewModel = HomeViewModel()
 	@State private var showPortfolio = false
-	@State private var showAddPortfolio = false
+	@State private var showEditPortfolio = false
+	@State private var showSettings = false
 	
     var body: some View {
 		ZStack {
@@ -18,9 +19,15 @@ struct HomeView: View {
 				.ignoresSafeArea()
 			
 			VStack {
-				HomeHeader(showPortfolio: $showPortfolio, showAddPortfolio: $showAddPortfolio)
+				HomeHeader(showPortfolio: $showPortfolio, showEditPortfolio: $showEditPortfolio, showSettings: $showSettings)
+					.sheet(isPresented: $showSettings) {
+						SettingsView()
+					}
 				
 				HomeStatView(stats: viewModel.stats, showPortfolio: $showPortfolio)
+					.sheet(isPresented: $showEditPortfolio) {
+						EditPortfolioView(homeViewModel: viewModel)
+					}
 				
 				SearchBarView(searchText: $viewModel.searchText)
 				
@@ -34,9 +41,6 @@ struct HomeView: View {
 						.transition(.move(edge: .trailing))
 				}
 			}
-		}
-		.sheet(isPresented: $showAddPortfolio) {
-			EditPortfolioView(homeViewModel: viewModel)
 		}
 		.task {
 			await viewModel.refresh()
