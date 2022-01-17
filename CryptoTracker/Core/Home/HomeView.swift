@@ -19,17 +19,17 @@ struct HomeView: View {
 			
 			VStack {
 				HomeHeader(showPortfolio: $showPortfolio, showAddPortfolio: $showAddPortfolio)
+				
 				HomeStatView(stats: viewModel.stats, showPortfolio: $showPortfolio)
+				
 				SearchBarView(searchText: $viewModel.searchText)
 				
 				if !showPortfolio {
-					// TODO: add sorting function
 					HomeCoinListView(coins: viewModel.filteredCoins)
 						.transition(.move(edge: .leading))
 				}
 				
 				if showPortfolio {
-					// TODO: add sorting function
 					PortfolioCoinListView(coins: viewModel.portfolioCoins)
 						.transition(.move(edge: .trailing))
 				}
@@ -39,28 +39,10 @@ struct HomeView: View {
 			EditPortfolioView(homeViewModel: viewModel)
 		}
 		.task {
-			// TODO: refactor
-			await withTaskGroup(of: Void.self) { group in
-				group.addTask {
-					await viewModel.getCoins()
-				}
-				
-				group.addTask {
-					await viewModel.getStatistic()
-				}
-			}
+			await viewModel.refresh()
 		}
 		.refreshable {
-			// TODO: refactor
-			await withTaskGroup(of: Void.self) { group in
-				group.addTask {
-					await viewModel.getCoins()
-				}
-				
-				group.addTask {
-					await viewModel.getStatistic()
-				}
-			}
+			await viewModel.refresh()
 		}
     }
 }

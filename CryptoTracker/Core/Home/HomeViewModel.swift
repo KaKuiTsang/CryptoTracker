@@ -102,4 +102,16 @@ class HomeViewModel: ObservableObject {
 			dump(error)
 		}
 	}
+	
+	func refresh() async {
+		await withTaskGroup(of: Void.self) { group in
+			group.addTask {
+				await self.getCoins()
+			}
+			
+			group.addTask {
+				await self.getStatistic()
+			}
+		}
+	}
 }
